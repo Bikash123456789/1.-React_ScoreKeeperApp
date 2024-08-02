@@ -1,8 +1,10 @@
 let score = 0;
 let wicket = 0;
 
-const clickOne = () => {
-  alert("1 is clicked");
+const addOne = () => {
+  score += 1;
+  root.render(<App />);
+  console.log(score);
 };
 
 const App = () => {
@@ -13,7 +15,7 @@ const App = () => {
         SCORE : {score}/{wicket}{" "}
       </h2>
       <div>
-        <button onClick={clickOne}>1</button>
+        <button onClick={addOne}>1</button>
         <button>2</button>
         <button>3</button>
         <button>4</button>
