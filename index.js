@@ -1,24 +1,23 @@
 let score = 0;
 let wicket = 0;
 let ballWiseResult = [];
-console.log(ballWiseResult);
+let hit = 0;
 
 const addScore = (num) => {
-  if (wicket < 10) {
-    score += num;
-    ballWiseResult.push(num);
-    console.log(ballWiseResult);
-    root.render(<App />);
-  }
+  hit = num;
+  root.render(<App />);
 };
 
 const addWicket = () => {
-  if (wicket < 10) {
-    wicket += 1;
-    ballWiseResult.push("W");
-    console.log(ballWiseResult);
-    root.render(<App />);
-  }
+  hit = "w";
+  root.render(<App />);
+};
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  ballWiseResult.unshift(hit);
+  root.render(<App />);
 };
 
 const ScoreButtons = () => {
@@ -78,19 +77,29 @@ const ScoreButtons = () => {
   );
 };
 
-const Result = () => {
+// const Result = () => {
+//   return (
+//     <div>
+//       {ballWiseResult.map((res, index) => {
+//         return (
+//           <>
+//             {index % 6 === 0 && <br />}
+//             <span>{res === 0 ? <strong>.</strong> : res}</span>
+//             <span>&nbsp;&nbsp;</span>
+//           </>
+//         );
+//       })}
+//     </div>
+//   );
+// };
+
+const Form = () => {
   return (
-    <div>
-      {ballWiseResult.map((res, index) => {
-        return (
-          <>
-            {index % 6 === 0 && <br />}
-            <span>{res === 0 ? <strong>.</strong> : res}</span>
-            <span>&nbsp;&nbsp;</span>
-          </>
-        );
-      })}
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input value={hit} />
+      <input />
+      <button>Submit</button>
+    </form>
   );
 };
 
@@ -102,7 +111,12 @@ const App = () => {
         SCORE : {score}/{wicket}{" "}
       </h2>
       <ScoreButtons />
-      <Result />
+      <br />
+      <Form />
+      <hr />
+      {ballWiseResult.map((res, index) => (
+        <p key={index}>{res}</p>
+      ))}
     </>
   );
 };
